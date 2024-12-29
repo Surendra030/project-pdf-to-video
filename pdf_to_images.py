@@ -52,7 +52,7 @@ def add_watermark_to_folder(folder_path):
         shadow_color = (0, 0, 0)  # Black shadow for better visibility
         opacity = 0.3
         if index % 10 ==0:
-            watermark_text = f"{watermark_text}\n\tSubscribe to our channer : Time For Epics."
+            watermark_text = f"Subscribe to our channer : 👉 Time For Epics 👈"
             font_scale = 1
             font_thickness = 1
         # Calculate the size of the text box

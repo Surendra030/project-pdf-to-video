@@ -7,8 +7,8 @@ import json
 
 from mega import Mega
 
-start = 501
-end  = 701
+start = 1
+end  = 2
 
 
 all_pdf_files = get_all_pdf_links(start,end)
