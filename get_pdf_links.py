@@ -54,7 +54,7 @@ def get_all_pdf_links(start,end):
     for key,snippet in all_files.items():
 
         file_name = snippet['a']['n']
-        if count<end and snippet['p'] == 'PFICADKL' and ('.pdf' in file_name) and ('.crdownload' not in file_name):
+        if count<=end and snippet['p'] == 'PFICADKL' and ('.pdf' in file_name) and ('.crdownload' not in file_name):
             try:
                 if count>=start:
                     link = m.export(file_name)
@@ -70,4 +70,3 @@ def get_all_pdf_links(start,end):
                 print("Error to get file Link.",e)
 
     return files_lst 
-
