@@ -50,7 +50,7 @@ def get_all_pdf_links(start,end):
 
     all_files = m.get_files()
     files_lst = []
-    count = 1
+    count = start
     for key,snippet in all_files.items():
 
         file_name = snippet['a']['n']
