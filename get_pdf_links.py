@@ -35,7 +35,7 @@ def download_link(link):
         print("Error failed to download file.")
     return False
 
-def get_all_pdf_links():
+def get_all_pdf_links(start,end):
 
     mega = Mega()
     keys = os.getenv("M_TOKEN")
@@ -54,9 +54,9 @@ def get_all_pdf_links():
     for key,snippet in all_files.items():
 
         file_name = snippet['a']['n']
-        if count<=301 and snippet['p'] == 'PFICADKL' and ('.pdf' in file_name) and ('.crdownload' not in file_name):
+        if count<=end and snippet['p'] == 'PFICADKL' and ('.pdf' in file_name) and ('.crdownload' not in file_name):
             try:
-                if count>100:
+                if count>start:
                     link = m.export(file_name)
 
                     obj  = {

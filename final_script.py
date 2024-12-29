@@ -7,11 +7,12 @@ import json
 
 from mega import Mega
 
+start = 301
+end  = 501
 
-all_pdf_files = get_all_pdf_links()
 
-start = 101
-end  = 102
+all_pdf_files = get_all_pdf_links(start,end)
+
 
 
 if all_pdf_files:
