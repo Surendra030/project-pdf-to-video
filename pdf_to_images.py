@@ -41,9 +41,9 @@ def add_watermark_to_folder(folder_path):
 
         # Create a transparent overlay for the watermark
         overlay = image.copy()
-
+        page = page_number.split('_')[-1]
         # watermark_text = page_number
-        if count == 10:
+        if int(page) % 10:
             watermark_text = f"Subscribe to our channer : Time For Epics"
             count = 1
         else : watermark_text = page_number
