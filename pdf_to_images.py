@@ -43,10 +43,6 @@ def add_watermark_to_folder(folder_path):
         overlay = image.copy()
         page = page_number.split('_')[-1]
         # watermark_text = page_number
-        if int(page) % 10:
-            watermark_text = f"Subscribe to our channer : Time For Epics"
-            count = 1
-        else : watermark_text = page_number
 
         # Define font, scale, and color
         font = cv2.FONT_HERSHEY_SIMPLEX
@@ -55,6 +51,14 @@ def add_watermark_to_folder(folder_path):
         color = (255, 0, 0)  # Blue text
         shadow_color = (0, 0, 0)  # Black shadow for better visibility
         opacity = 0.3
+
+        if int(page) % 10 ==0:
+            watermark_text = f"Subscribe to our channer : Time For Epics"
+            font_scale = 1
+            font_thickness = 1
+        else : watermark_text = page_number
+
+
 
         # Calculate the size of the text box
         (text_width, text_height), baseline = cv2.getTextSize(watermark_text, font, font_scale, font_thickness)
