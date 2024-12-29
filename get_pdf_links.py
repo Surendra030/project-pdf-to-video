@@ -32,7 +32,7 @@ def download_link(link):
         m.download_url(link)
         return True
     except Exception as e:
-        print("Error failed to download file.",e)
+        print("Error failed to download file.")
     return False
 
 def get_all_pdf_links(start,end):
@@ -45,16 +45,16 @@ def get_all_pdf_links(start,end):
         m = mega.login(keys[0],keys[1])
         raise ValueError("Initial login sucessfull.. ")
     except Exception as e:
-        print("Error Initial login failed.",e)
+        print("Error Initial login failed.")
 
 
     all_files = m.get_files()
     files_lst = []
-    count = start
+    count = 1
     for key,snippet in all_files.items():
 
         file_name = snippet['a']['n']
-        if count<=end and snippet['p'] == 'PFICADKL' and ('.pdf' in file_name) and ('.crdownload' not in file_name):
+        if count<end and snippet['p'] == 'PFICADKL' and ('.pdf' in file_name) and ('.crdownload' not in file_name):
             try:
                 if count>=start:
                     link = m.export(file_name)
