@@ -54,8 +54,9 @@ def add_watermark_to_folder(folder_path):
 
         if int(page) % 10 ==0:
             watermark_text = f"Subscribe to our channer : Time For Epics"
-            font_scale = 1
-            font_thickness = 1
+            font_scale = 0.5
+            font_thickness = 0.5
+            opacity = 0.5
         else : watermark_text = page_number
 
 
