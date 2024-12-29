@@ -21,7 +21,7 @@ def add_watermark_to_folder(folder_path):
     if not image_files:
         print(f"No PNG images found in folder {folder_path}!")
         return False
-
+    count = 1
     for index,image_file in enumerate(image_files,start=1):
         # Construct the full image path
         image_path = os.path.join(folder_path, image_file)
@@ -51,10 +51,12 @@ def add_watermark_to_folder(folder_path):
         color = (255, 0, 0)  # Blue text
         shadow_color = (0, 0, 0)  # Black shadow for better visibility
         opacity = 0.3
-        if index % 10 ==0:
+
+        if count == 10:
             watermark_text = f"Subscribe to our channer : 👉 Time For Epics 👈"
             font_scale = 1
             font_thickness = 1
+            count = 1
         # Calculate the size of the text box
         (text_width, text_height), baseline = cv2.getTextSize(watermark_text, font, font_scale, font_thickness)
 
@@ -80,6 +82,7 @@ def add_watermark_to_folder(folder_path):
 
         # Rename the temporary file to the original image name
         os.rename(temp_output_path, image_path)
+        count +=1
 
     print(f"Watermarking completed for all images in {folder_path}")
     return True
