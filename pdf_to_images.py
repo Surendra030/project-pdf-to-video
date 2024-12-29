@@ -56,7 +56,6 @@ def add_watermark_to_folder(folder_path):
         shadow_color = (0, 0, 0)  # Black shadow for better visibility
         opacity = 0.3
 
-        print(watermark_text)
         # Calculate the size of the text box
         (text_width, text_height), baseline = cv2.getTextSize(watermark_text, font, font_scale, font_thickness)
 
@@ -109,7 +108,6 @@ def pdf_to_images_with_fitz(pdf_path, output_folder='images', image_format="png"
             
             # Save the pixmap as an image file
             pix.save(image_path)
-            print(f"Saved: {image_path}")
         water_mark_added = add_watermark_to_folder(output_folder)
         print("All pages converted successfully.")
 
