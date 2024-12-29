@@ -32,7 +32,7 @@ def download_link(link):
         m.download_url(link)
         return True
     except Exception as e:
-        print("Error failed to download file.")
+        print("Error failed to download file.",e)
     return False
 
 def get_all_pdf_links(start,end):
@@ -45,7 +45,7 @@ def get_all_pdf_links(start,end):
         m = mega.login(keys[0],keys[1])
         raise ValueError("Initial login sucessfull.. ")
     except Exception as e:
-        print("Error Initial login failed.")
+        print("Error Initial login failed.",e)
 
 
     all_files = m.get_files()
