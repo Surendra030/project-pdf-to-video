@@ -55,7 +55,7 @@ def get_all_pdf_links(start,end):
             with open(f,encoding='utf-8')as f :
                 data = json.load(f)
                 f.close()
-                return data if len(data) > 0 else None
+                return data if len(data) > 0 else m.getfiles() 
                 
 
     except Exception as e:
