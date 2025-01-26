@@ -38,7 +38,7 @@ if all_pdf_files:
                 print("\npdf to video converted sucessfully..")
                 if os.path.exists(video_path):
                     keys = os.getenv("M_TOKEN")
-                    keys = keys.split("_")
+                    keys = 'afg154006@gmail.com_megaMac02335!'.split("_")
 
 
                     mega = Mega()
@@ -52,8 +52,9 @@ if all_pdf_files:
 
 
                     try:
-                        
-                        m.upload(video_path,dest='OdhCgTJR')
+                        folder_create = 'pdf_videos_temp'
+                        file = m.create_folder(folder_create)
+                        m.upload(video_path,dest=file[folder_create])
                         
                         print("video uploded sucessfully...")
                     except Exception as e:
