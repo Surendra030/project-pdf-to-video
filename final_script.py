@@ -12,8 +12,8 @@ end  = 3
 
 f= "pdf_links_data.json"
 all_pdf_files=None
-with open(f, encoding='utf-8') as f:
-    all_pdf_files=json.dump(f) 
+with open(f, encoding='utf-8') as fp:
+    all_pdf_files=json.load(fp) 
 
 all_pdf_files = all_pdf_files[start:end]
 
