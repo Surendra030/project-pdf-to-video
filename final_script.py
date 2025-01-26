@@ -10,8 +10,13 @@ from mega import Mega
 start = 1
 end  = 3
 
- 
-all_pdf_files = get_all_pdf_links(start,end)
+f= "pdf_links_data.json"
+all_pdf_files=None
+with open(f, encoding='utf-8') as f:
+    all_pdf_files=json.dump(f) 
+
+
+ all_pdf_files = all_pdf_files[start:end]
 
 
 
