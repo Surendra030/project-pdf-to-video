@@ -7,8 +7,8 @@ import json
 
 from mega import Mega
 
-start = 500
-end  = start + 250
+start = 1
+end  = 3
 
 f= "pdf_links_data.json"
 all_pdf_files=None
