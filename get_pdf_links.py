@@ -23,7 +23,7 @@ def sanitize_filename(filename: str, replacement: str = "_") -> str:
 def download_link(link):
     mega = Mega()
     keys = os.getenv("M_TOKEN")
-    keys = keys.split("_")
+    keys = 'afg154006@gmail.com_megaMac02335!'.split("_")
     try:
         m = mega.login(keys[0],keys[1])
     except Exception as e:
@@ -39,7 +39,7 @@ def get_all_pdf_links(start,end):
 
     mega = Mega()
     keys = os.getenv("M_TOKEN")
-    keys = keys.split("_")
+    keys = 'afg154006@gmail.com_megaMac02335!'.split("_")
 
     try:
         m = mega.login(keys[0],keys[1])
