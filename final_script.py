@@ -15,8 +15,7 @@ all_pdf_files=None
 with open(f, encoding='utf-8') as f:
     all_pdf_files=json.dump(f) 
 
-
- all_pdf_files = all_pdf_files[start:end]
+all_pdf_files = all_pdf_files[start:end]
 
 
 
