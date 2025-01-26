@@ -46,8 +46,8 @@ def add_watermark_to_folder(folder_path):
 
         # Define font, scale, and color
         font = cv2.FONT_HERSHEY_SIMPLEX
-        font_scale = 3
-        font_thickness = 3
+        font_scale = 1.5
+        font_thickness = 1.5
         color = (255, 0, 0)  # Blue text
         shadow_color = (0, 0, 0)  # Black shadow for better visibility
         opacity = 0.3
