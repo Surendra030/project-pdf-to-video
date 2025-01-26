@@ -7,8 +7,8 @@ import json
 
 from mega import Mega
 
-start = 501
-end  = 701
+start = 1
+end  = 3
 
 
 all_pdf_files = get_all_pdf_links(start,end)
@@ -62,4 +62,5 @@ if all_pdf_files:
 
         else: print("pdf to images convertion failed..")
 
-else: print("Pdf files list is Empty.")
+else:
+    print("Pdf files list is Empty.",all_pdf_files)
