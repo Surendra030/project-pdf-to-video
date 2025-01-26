@@ -47,25 +47,17 @@ def get_all_pdf_links(start,end):
         print("Error Initial login failed.",e)
 
 
-    all_files = m.get_files()
-    files_lst = []
-    count = 1
-    for key,snippet in all_files.items():
+    try:
+        f="pdf_links_data.json"
+        link = m.export("pdf_links_data.json") 
+        m.download_url(link) 
+        if os.path.exits(f):
+            with open(f,encoding='utf-8')as f :
+                data = json.load(f)
+                f.close()
+                return data if len(data) > 0 else None
+                
 
-        file_name = snippet['a']['n']
-        if count<end and snippet['p'] == 'PFICADKL' and ('.pdf' in file_name) and ('.crdownload' not in file_name):
-            try:
-                if count>=start:
-                    link = m.export(file_name)
-
-                    obj  = {
-                        'link':link,
-                        'file_name':file_name
-                    }
-
-                    files_lst.append(obj)
-                count +=1
-            except Exception as e:
-                print("Error to get file Link.",e)
-
-    return files_lst 
+    except Exception as e:
+        print("error :",) 
+            
