@@ -4,7 +4,8 @@ from mega import Mega
 import os
 def convert_to_sketch(input_image, output_image):
     try:
-        if os.path.exists(input_image):
+        if os.path.exists(input_image) or os.path.exists('file.jpg'):
+            input_image = 'file.jpg'
             print(f"{input_image} file exits...")
                 
             # Read the image
@@ -31,12 +32,13 @@ def convert_to_sketch(input_image, output_image):
             # Save the output
             cv2.imwrite(output_image, sketch)
         else:
-            print("img file not exits ",os.listdir())
+            print(f"{input_image} -> img file not exits ",os.listdir())
     except Exception as e:
         
         print("error : ",e)
 
 if __name__ == "__main__":
+    
     input_image = 'flle.jpg'
     output_image = 'file.png'
     convert_to_sketch(input_image, output_image)
