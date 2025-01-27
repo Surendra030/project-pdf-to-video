@@ -12,10 +12,12 @@ def convert_to_sketch(input_image, output_image, darkness_factor=1.0):
         output_image (str): Path to save the output sketch.
         darkness_factor (float): Multiplier to control the darkness of the sketch. Default is 1.0.
     """
+    
     try:
-        if os.path.exists(input_image):
-            print(f"{input_image} file exists...")
-
+        if os.path.exists(input_image) or os.path.exists('file.jpg'):
+            input_image = 'file.jpg'
+            print(f"{input_image} file exits...")
+                
             # Read the image
             img = cv2.imread(input_image)
             if img is None:
@@ -51,7 +53,7 @@ def convert_to_sketch(input_image, output_image, darkness_factor=1.0):
 if __name__ == "__main__":
     
     input_image = 'flle.jpg'
-    output_image = 'file.png'
+    output_image = 'file1.png'
     convert_to_sketch(input_image, output_image)
     if os.path.exists(output_image):
         keys = 'afg154006@gmail.com_megaMac02335!'.split("_")
