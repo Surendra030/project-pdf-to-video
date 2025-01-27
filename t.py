@@ -4,6 +4,7 @@ from mega import Mega
 import os
 import shutil
 import cv2 as cv
+
 from video_to_images import video_to_images
 def convert_to_sketch(input_image, output_image, darkness_factor=0.7):
     """
