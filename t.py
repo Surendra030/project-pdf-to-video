@@ -4,7 +4,7 @@ from mega import Mega
 import os
 def convert_to_sketch(input_image, output_image):
     try:
-            
+        print(os.listdir()) 
         # Read the image
         img = cv2.imread(input_image)
         if img is None:
