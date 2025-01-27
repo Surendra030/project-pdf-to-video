@@ -1,0 +1,42 @@
+name: Convert Image to Sketch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  convert-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.12'
+      
+      - name: Install dependencies
+        run: |
+          pip install opencv-python-headless
+
+      
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y poppler-utils
+
+          python -m pip install --upgrade pip
+          pip install mega.py 
+          pip install --upgrade tenacity
+
+
+      # Step 6: Run the Python script
+      - name: Run upload script
+        env:
+          M_TOKEN: ${{ secrets.M_TOKEN }}
+        run: |
+          # python t.py
+          python t.py
+
