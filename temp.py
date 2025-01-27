@@ -2,13 +2,19 @@ from mega import Mega
 import json
 import os
 
-keys = 'afg154006@gmail_megaMac02335!'.split("_")
+keys = 'afg154006@gmail.com_megaMac02335!'.split("_")
 mega = Mega()
-m = mega.login(keys[0],keys[1])
 
+try:
+        
+    m = mega.login(keys[0],keys[1])
+except Exception as e:
+    print("Error failed to login..")
+    
 all_files = m.get_files().items()
 with open('temp.json')as f:
     data = json.load(f)
+    
 try:
     index = 1
     for key,snippet in all_files:
