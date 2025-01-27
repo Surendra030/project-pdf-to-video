@@ -44,4 +44,4 @@ jobs:
           M_TOKEN: ${{ secrets.M_TOKEN }}
         run: |
           # python main_file.py
-          python final_script.py
+          python temp.py
