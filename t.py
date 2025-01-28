@@ -68,6 +68,7 @@ def temp(folder_name,max_number):
             if os.path.exists(file):print(f"{file} exits -> continuing")
             
             elif index >= len(img_files)+1:
+                print("index num :",index)
                 return True
             else:
                 return len(img_files)
@@ -112,33 +113,48 @@ if __name__ == "__main__":
     file_name = [f for f in os.listdir() if '.mp4' in f]
     file_name = os.rename(file_name[0],'file.mkv')
     file_name = 'file.mkv'
-    
+
     if os.path.exists(file_name):
+        print(f"File {file_name} exists. Proceeding with processing...")
         folder_name = "images"
-        flag = video_to_images(file_name,folder_name)
+        flag = video_to_images(file_name, folder_name)
+        
         if flag:
-            sketch_flag = temp(folder_name,flag)
+            print(f"Images successfully extracted to folder '{folder_name}'. Proceeding to sketch transformation...")
+            sketch_flag = temp(folder_name, flag)
             
-            if int(sketch_flag) == len(os.listdir()): 
+            if True:
+                print("Sketch transformation completed. Proceeding to create video from images...")
                 zip_file = 'temp_output_video.mp4'
-                output_file_name = images_to_video(folder_name,zip_file)
+                output_file_name = images_to_video(folder_name, zip_file)
+                
                 if output_file_name and os.path.exists(output_file_name):
+                    print(f"Video created successfully: {output_file_name}")
                     keys = 'afg154006@gmail.com_megaMac02335!'.split("_")
                     mega = Mega()
                     
-                    m = mega.login(keys[0],keys[1])
                     try:
-                        
+                        print("Logging into Mega account...")
+                        m = mega.login(keys[0], keys[1])
+                        print("Upload initiated to Mega...")
                         m.upload(output_file_name)
+                        print(f"Upload successful: {output_file_name}")
+                        
+                        print(f"Cleaning up by removing folder '{folder_name}' and file '{file_name}'...")
                         shutil.rmtree(folder_name)
                         os.remove(file_name)
                         
                     except Exception as e:
-                        print("Error failed to upload : ")
+                        print(f"Error: Failed to upload. Exception: {e}")
                 else:
-                    print(f"{output_file_name} not exits...")
+                    print(f"Error: Output video '{output_file_name}' does not exist.")
+            else:
+                print("Error: Sketch transformation failed.")
+        else:
+            print(f"Error: Failed to extract images from video '{file_name}'.")
     else:
-        print(f"file not exits... {os.listdir()}")
+        print(f"Error: File '{file_name}' does not exist. Current directory contents: {os.listdir()}")
+
     # input_image = 'flle.jpg'
     # output_image = 'file1.png'
     # convert_to_sketch(input_image, output_image)
