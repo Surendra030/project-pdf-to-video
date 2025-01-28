@@ -6,41 +6,56 @@ import os
 
 def images_to_video(image_folder, output_video, fps=30):
     try:
-        
+        print(f"Starting video creation from images in folder: '{image_folder}'")
         images = []
-        for i in range(1,len(os.listdir(image_folder))+1):
+        for i in range(1, len(os.listdir(image_folder)) + 1):
             file_path = f'./{image_folder}/{i}_img.jpg'
-            images.append(file_path)
-        
-        
+            if os.path.exists(file_path):
+                images.append(file_path)
+            else:
+                print(f"Warning: File '{file_path}' does not exist, skipping.")
+
         if not images:
-            print("Error: No images found in the folder.")
-            return
+            print("Error: No valid images found in the folder. Exiting...")
+            return None
+
+        print(f"Found {len(images)} images. Preparing to create video...")
         
         # Read the first image to get the frame dimensions
-        first_image_path = os.path.join(image_folder, images[0])
+        first_image_path = images[0]
+        print(f"Reading the first image for dimensions: {first_image_path}")
         frame = cv2.imread(first_image_path)
+        if frame is None:
+            print("Error: Could not read the first image. Exiting...")
+            return None
+        
         height, width, layers = frame.shape
+        print(f"Frame dimensions: Width={width}, Height={height}, Layers={layers}")
 
         # Initialize video writer
+        print("Initializing video writer...")
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for MP4
         video_writer = cv2.VideoWriter(output_video, fourcc, fps, (width, height))
+        print(f"Video writer initialized with output file: {output_video}, FPS: {fps}")
 
         # Add each image to the video
-        for image_name in images:
-            img_path = os.path.join(image_folder, image_name)
+        for idx, image_name in enumerate(images, start=1):
+            img_path = image_name
+            print(f"Processing image {idx}/{len(images)}: {img_path}")
             frame = cv2.imread(img_path)
             if frame is None:
-                print(f"Warning: Could not read {image_name}, skipping.")
+                print(f"Warning: Could not read '{img_path}', skipping this image.")
                 continue
             video_writer.write(frame)
 
         # Release the video writer
         video_writer.release()
-        print(f"Video created successfully: {output_video}")
+        print(f"Video creation completed successfully: {output_video}")
         return output_video if os.path.exists(output_video) else None
+
     except Exception as e:
-        print("Error:", e)
+        print(f"Error during video creation: {e}")
+        return None
 
 
 
