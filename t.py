@@ -55,8 +55,7 @@ def convert_to_sketch(input_image, output_image, darkness_factor=0.7):
         print("Error:", e)
 
 
-def temp(folder_name,max_number):
-    max_number = int(max_number)
+def temp(folder_name):
     
     
     img_files = os.listdir(folder_name)
@@ -65,13 +64,12 @@ def temp(folder_name,max_number):
         print(len(img_files))
         for index,file in enumerate(img_files,start=1):
             file = f'./{folder_name}/{index}_img.jpg'
-            if os.path.exists(file):print(f"{file} exits -> continuing")
             
-            elif index >= len(img_files)+1:
-                print("index num :",index)
+            if index >= len(img_files)+1:
+                print("stopped index num :",index)
                 return True
-            else:
-                return len(img_files)
+            if not os.path.exists(file): return len(img_files)
+
             # Replace this image name to your image name
             image = cv.imread(file)
 
@@ -117,16 +115,17 @@ if __name__ == "__main__":
     if os.path.exists(file_name):
         print(f"File {file_name} exists. Proceeding with processing...")
         folder_name = "images"
-        flag = video_to_images(file_name, folder_name)
+        frame_count, fps = video_to_images(file_name, folder_name)
         
-        if flag:
+        if frame_count is not None and fps is not None:
+
             print(f"Images successfully extracted to folder '{folder_name}'. Proceeding to sketch transformation...")
             sketch_flag = temp(folder_name, flag)
             
             if True:
                 print("Sketch transformation completed. Proceeding to create video from images...")
                 zip_file = 'temp_output_video.mp4'
-                output_file_name = images_to_video(folder_name, zip_file)
+                output_file_name = images_to_video(folder_name, zip_file, fps=fps)
                 
                 if output_file_name and os.path.exists(output_file_name):
                     print(f"Video created successfully: {output_file_name}")

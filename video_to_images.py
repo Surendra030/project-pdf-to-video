@@ -4,9 +4,9 @@ import os
 import cv2
 import os
 
-def images_to_video(image_folder, output_video, fps=30):
+def images_to_video(image_folder, output_video, fps):
     try:
-        print(f"Starting video creation from images in folder: '{image_folder}'")
+        print(f"Starting video creation from images in folder: '{image_folder}' with FPS: {fps}")
         images = []
         for i in range(1, len(os.listdir(image_folder)) + 1):
             file_path = f'./{image_folder}/{i}_img.jpg'
@@ -58,10 +58,8 @@ def images_to_video(image_folder, output_video, fps=30):
         return None
 
 
-
 def video_to_images(video_file, output_folder):
     try:
-            
         # Create output folder if it doesn't exist
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
@@ -71,31 +69,34 @@ def video_to_images(video_file, output_folder):
 
         if not video.isOpened():
             print("Error: Could not open video.")
-            return
+            return None, None
 
-        # Get the total number of frames in the video
+        # Get the total number of frames and FPS from the video
         total_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+        fps = video.get(cv2.CAP_PROP_FPS)
+        print(f"Original video FPS: {fps}")
+        print(f"Total frames in original video: {total_frames}")
 
-        # Iterate over all frames
+        # Iterate over all frames and save them as images
         frame_count = 0
         while True:
             ret, frame = video.read()
             if not ret:
                 break
 
-            # Increment frame count
+            # Increment frame count and save frame as an image
             frame_count += 1
-
-            # Save each frame as an image
             img_filename = f"{frame_count}_img.jpg"
             img_path = os.path.join(output_folder, img_filename)
             cv2.imwrite(img_path, frame)
 
-
         # Release the video capture object
         video.release()
-        print("Video to images conversion completed!")
-        return frame_count if os.path.exists(output_folder) else None
+        print(f"Video to images conversion completed! {frame_count} images saved to '{output_folder}'")
+        print(f"total img files  : {len(os.listdir(output_folder))}")
+        # Return the total frame count and FPS
+        return frame_count, fps
     except Exception as e:
-        print("Error : ",e)
+        print(f"Error during video-to-images conversion: {e}")
+        return None, None
 
