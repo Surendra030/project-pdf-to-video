@@ -62,11 +62,11 @@ def temp(folder_name,max_number):
     img_files = os.listdir(folder_name)
     
     try:
-            
+        print(len(img_files))
         for index,file in enumerate(img_files,start=1):
             file = f'./{folder_name}/{index}_img.jpg'
             
-            if os.path.exists(file):print("file exits -> continuing")
+            if os.path.exists(file):print(f"{file} exits -> continuing")
             else: return None
             # Replace this image name to your image name
             image = cv.imread(file)
@@ -96,6 +96,8 @@ def temp(folder_name,max_number):
         return True
     except Exception as e:
         print("Error : ",e)
+        
+        
     
 if __name__ == "__main__":
     
@@ -107,6 +109,7 @@ if __name__ == "__main__":
     file_name = [f for f in os.listdir() if '.mp4' in f]
     file_name = os.rename(file_name[0],'file.mkv')
     file_name = 'file.mkv'
+    
     if os.path.exists(file_name):
         folder_name = "images"
         flag = video_to_images(file_name,folder_name)
