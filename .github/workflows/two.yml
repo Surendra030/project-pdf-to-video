@@ -33,6 +33,14 @@ jobs:
           pip install sketchify
 
           pip install --upgrade tenacity
+          
+       # Step 3: Install dependencies
+      - name: Install dep
+        run: |
+          
+          pip install sketchify
+
+         
 
 
       # Step 6: Run the Python script
@@ -41,5 +49,5 @@ jobs:
           M_TOKEN: ${{ secrets.M_TOKEN }}
         run: |
           # python t.py
-          python new.py
+          python t.py
 
