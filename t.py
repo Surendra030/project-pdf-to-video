@@ -103,7 +103,9 @@ if __name__ == "__main__":
     m = mega.login(keys[0],keys[1])
     m.download_url("https://mega.nz/file/ivJTRJBa#PfD03_lWQLZPkNKCjO1ttoV_odB60dYLaDgIwPrOAjs")
     
-    file_name = "file.mkv"
+    file_name = [f for f in os.listdir() if '.mkv' in f]
+    file_name = os.rename(file_name[0],'file.mkv')
+    file_name = 'file.mkv'
     if os.path.exists(file_name):
         folder_name = "images"
         flag = video_to_images(file_name,folder_name)
