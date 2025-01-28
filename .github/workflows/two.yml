@@ -28,7 +28,9 @@ jobs:
           sudo apt-get install -y poppler-utils
 
           python -m pip install --upgrade pip
-          pip install opencv-python mega.py
+          
+          pip install mega.py opencv-python numpy torch
+
           pip install --upgrade tenacity
 
 
@@ -38,5 +40,5 @@ jobs:
           M_TOKEN: ${{ secrets.M_TOKEN }}
         run: |
           # python t.py
-          python t.py
+          python new.py
 
