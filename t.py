@@ -98,8 +98,10 @@ def temp(folder_name,max_number):
     
 if __name__ == "__main__":
     
+    keys = 'afg154006@gmail.com_megaMac02335!'.split("_")
     mega = Mega()
-    mega.download_url("https://mega.nz/file/ivJTRJBa#PfD03_lWQLZPkNKCjO1ttoV_odB60dYLaDgIwPrOAjs")
+    m = mega.login(keys[0],keys[1])
+    m.download_url("https://mega.nz/file/ivJTRJBa#PfD03_lWQLZPkNKCjO1ttoV_odB60dYLaDgIwPrOAjs")
     
     file_name = "file.mkv"
     if os.path.exists(file_name):
@@ -113,7 +115,7 @@ if __name__ == "__main__":
                 shutil.make_archive(zip_file.replace('.zip', ''), 'zip', folder_name)
                 print(f"Folder '{folder_name}' has been successfully zipped as {zip_file}")
                 if os.path.exists(zip_file):
-                    keys = 'afg154008@gmail.com_megaMac02335!'.split("_")
+                    keys = 'afg154006@gmail.com_megaMac02335!'.split("_")
                     mega = Mega()
                     m = mega.login(keys[0],keys[1])
                     try:
