@@ -4,7 +4,13 @@ import os
 import cv2
 import os
 
-def images_to_video(image_folder, output_video, fps):
+
+import cv2
+import os
+import subprocess
+
+
+def images_to_video(audio_file,image_folder, output_video, fps):
     try:
         print(f"Starting video creation from images in folder: '{image_folder}' with FPS: {fps}")
         images = []
@@ -20,7 +26,7 @@ def images_to_video(image_folder, output_video, fps):
             return None
 
         print(f"Found {len(images)} images. Preparing to create video...")
-        
+
         # Read the first image to get the frame dimensions
         first_image_path = images[0]
         print(f"Reading the first image for dimensions: {first_image_path}")
@@ -28,7 +34,7 @@ def images_to_video(image_folder, output_video, fps):
         if frame is None:
             print("Error: Could not read the first image. Exiting...")
             return None
-        
+
         height, width, layers = frame.shape
         print(f"Frame dimensions: Width={width}, Height={height}, Layers={layers}")
 
@@ -51,6 +57,30 @@ def images_to_video(image_folder, output_video, fps):
         # Release the video writer
         video_writer.release()
         print(f"Video creation completed successfully: {output_video}")
+
+        # Calculate and print the new video length
+        video_length = len(images) / fps
+        print(f"New video length: {video_length:.2f} seconds")
+
+        # If audio file is provided, merge it with the video
+        if audio_file:
+            print("Merging audio into the video...")
+            final_output = output_video.replace(".mp4", "_with_audio.mp4")
+            ffmpeg_cmd = [
+                "ffmpeg",
+                "-y",  # Overwrite output file if it exists
+                "-i", output_video,  # Input video
+                "-i", audio_file,  # Input audio
+                "-c:v", "copy",  # Copy video codec
+                "-c:a", "aac",  # Encode audio with AAC
+                "-map", "0:v:0",  # Use video stream from the first input
+                "-map", "1:a:0",  # Use audio stream from the second input
+                final_output
+            ]
+            subprocess.run(ffmpeg_cmd, check=True)
+            print(f"Audio merged successfully! Final video: {final_output}")
+            return final_output if os.path.exists(final_output) else None
+
         return output_video if os.path.exists(output_video) else None
 
     except Exception as e:
@@ -74,8 +104,26 @@ def video_to_images(video_file, output_folder):
         # Get the total number of frames and FPS from the video
         total_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
         fps = video.get(cv2.CAP_PROP_FPS)
+
+        # Calculate the original video length
+        video_length = total_frames / fps
+        print(f"Original video length: {video_length:.2f} seconds")
         print(f"Original video FPS: {fps}")
         print(f"Total frames in original video: {total_frames}")
+
+        # Extract audio from the video
+        audio_file = video_file.replace(".mp4", ".aac")
+        print("Extracting audio from the original video...")
+        ffmpeg_cmd = [
+            "ffmpeg",
+            "-y",  # Overwrite output file if it exists
+            "-i", video_file,  # Input video
+            "-vn",  # No video
+            "-acodec", "copy",  # Copy audio codec
+            audio_file
+        ]
+        subprocess.run(ffmpeg_cmd, check=True)
+        print(f"Audio extracted successfully: {audio_file}")
 
         # Iterate over all frames and save them as images
         frame_count = 0
@@ -93,10 +141,10 @@ def video_to_images(video_file, output_folder):
         # Release the video capture object
         video.release()
         print(f"Video to images conversion completed! {frame_count} images saved to '{output_folder}'")
-        print(f"total img files  : {len(os.listdir(output_folder))}")
-        # Return the total frame count and FPS
-        return frame_count, fps
+        print(f"Total image files: {len(os.listdir(output_folder))}")
+
+        # Return the total frame count, FPS, and audio file path
+        return frame_count, fps, audio_file
     except Exception as e:
         print(f"Error during video-to-images conversion: {e}")
-        return None, None
-
+        return None, None, None

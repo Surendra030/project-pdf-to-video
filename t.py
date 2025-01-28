@@ -115,7 +115,7 @@ if __name__ == "__main__":
     if os.path.exists(file_name):
         print(f"File {file_name} exists. Proceeding with processing...")
         folder_name = "images"
-        frame_count, fps = video_to_images(file_name, folder_name)
+        frame_count, fps,audio_file = video_to_images(file_name, folder_name)
         
         if frame_count is not None and fps is not None:
 
@@ -125,7 +125,7 @@ if __name__ == "__main__":
             if True:
                 print("Sketch transformation completed. Proceeding to create video from images...")
                 zip_file = 'temp_output_video.mp4'
-                output_file_name = images_to_video(folder_name, zip_file, fps=fps)
+                output_file_name = images_to_video(audio_file,folder_name, zip_file, fps=fps)
                 
                 if output_file_name and os.path.exists(output_file_name):
                     print(f"Video created successfully: {output_file_name}")
