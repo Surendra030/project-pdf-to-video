@@ -124,7 +124,8 @@ if __name__ == "__main__":
                         
                     except Exception as e:
                         print("Error failed to upload : ")
-    
+    else:
+        print(f"file not exits... {os.listdir()}")
     # input_image = 'flle.jpg'
     # output_image = 'file1.png'
     # convert_to_sketch(input_image, output_image)
