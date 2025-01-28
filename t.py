@@ -120,7 +120,7 @@ if __name__ == "__main__":
         if frame_count is not None and fps is not None:
 
             print(f"Images successfully extracted to folder '{folder_name}'. Proceeding to sketch transformation...")
-            sketch_flag = temp(folder_name, flag)
+            sketch_flag = temp(folder_name)
             
             if True:
                 print("Sketch transformation completed. Proceeding to create video from images...")
