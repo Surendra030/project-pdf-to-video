@@ -17,10 +17,10 @@ jobs:
         with:
           python-version: '3.12'
       
-      - name: Install dependencies
+      - name: Install Ghostscript
         run: |
-          pip install opencv-python-headless
-
+          sudo apt-get update
+          sudo apt install ffmpeg
       
       # Step 3: Install dependencies
       - name: Install dependencies
