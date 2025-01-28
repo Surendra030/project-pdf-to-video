@@ -65,9 +65,12 @@ def temp(folder_name,max_number):
         print(len(img_files))
         for index,file in enumerate(img_files,start=1):
             file = f'./{folder_name}/{index}_img.jpg'
-            
             if os.path.exists(file):print(f"{file} exits -> continuing")
-            else: return None
+            
+            elif index >= len(img_files)+1:
+                return True
+            else:
+                return len(img_files)
             # Replace this image name to your image name
             image = cv.imread(file)
 
@@ -114,9 +117,9 @@ if __name__ == "__main__":
         folder_name = "images"
         flag = video_to_images(file_name,folder_name)
         if flag:
-            flag = temp(folder_name,flag)
+            sketch_flag = temp(folder_name,flag)
             
-            if flag: 
+            if int(sketch_flag) == len(os.listdir()): 
                 zip_file = 'temp_output_video.mp4'
                 output_file_name = images_to_video(folder_name,zip_file)
                 if output_file_name and os.path.exists(output_file_name):
