@@ -29,7 +29,8 @@ jobs:
 
           python -m pip install --upgrade pip
           
-          pip install mega.py opencv-python numpy torch
+          pip install mega.py torch torchvision Pillow
+
 
           pip install --upgrade tenacity
 
