@@ -129,10 +129,10 @@ if __name__ == "__main__":
                 
                 zip_file = 'temp_output_video.mp4'
                 output_file_name = images_to_video(folder_name, zip_file, fps=fps)
-                result = extract_audio(file_name, audio_file)
+                # result = extract_audio(file_name, audio_file)
                 
-                if os.path.exists(audio_file):
-                    output_file_name = replace_audio(output_file_name,audio_file)
+                # if os.path.exists(audio_file):
+                #     output_file_name = replace_audio(output_file_name,audio_file)
                     
                 
                 
